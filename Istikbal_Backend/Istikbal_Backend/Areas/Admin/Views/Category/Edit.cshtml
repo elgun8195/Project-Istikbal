@@ -1,0 +1,53 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<CategoryIn> categoryins = (List<CategoryIn>)ViewBag.CategoryIns;
+}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Default form</h4>
+                        <p class="card-description">
+                            Basic form layout
+                        </p>
+                        <form class="forms-sample" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label asp-for="Photo">Photo</label>
+                                <input asp-for="Photo" class="form-control" placeholder="Photo">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name">Name</label>
+                                <input asp-for="Name" class="form-control" placeholder="Name">
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="@Model.CategoryInIds" class="form-label">Dest</label>
+                                <select asp-for="@Model.CategoryInIds" class="form-select">
+                                    @foreach (var categoryin in ViewBag.CategoryIns)
+                                    {
+                                        if (Model.CategoryDests.FirstOrDefault(fc => fc.CategoryInId == categoryin.Id) != null)
+                                        {
+                                            <option value="@categoryin.Id" selected>@categoryin.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@categoryin.Id">@categoryin.Name</option>
+
+                                        }
+                                    }
+                                </select>
+                                <span class="mt-2 text text-danger" asp-validation-for="@Model.CategoryInIds"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                            <a asp-area="admin" asp-controller="category" asp-action="index" class="btn btn-light">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

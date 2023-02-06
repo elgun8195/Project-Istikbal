@@ -1,0 +1,69 @@
+﻿@model HomeVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Slider Area Start -->
+<div class="position-relative olo">
+    <div class="slider">
+        @foreach (var item in Model.Sliders)
+        {
+            
+        <img src="~/assets/img/slider/@item.ImageUrl" class="" alt="">
+        }
+    </div>
+    <div class="slick-slider-dots pas d-sm-block d-none"></div>
+    <div class="prev pa-prev hover5 t-5">
+        <i class="fa-solid fa-chevron-left  text-white t-5" style="cursor: pointer;"></i>
+    </div>
+    <div class="next pa-next hover5 t-5">
+        <i class="fa-solid fa-chevron-right text-white t-5" style="cursor: pointer;"></i>
+    </div>
+</div>
+<!-- Slider Area End -->
+<!-- New Model Area Start -->
+<div>
+    <div class="container">
+        <div class="new-model position-relative">
+            <h3 class="text-blue fw-normal py-3">YENİ MEBEL MODELLƏRİ</h3>
+            <div class="new-model-slider row">
+                @foreach (var item in Model.Products)
+                {                    
+                <div class="single-product">
+                    <div class="border single-product-into position-relative ms-sm-4 br-5">
+                        <div class="images-hover">
+                                <a href="/shop/detail/@item.Id" class="">
+                                @foreach (var image in item.ProductImages)
+                                    {
+                                     if (image.IsMain)
+                                        {
+                                <img src="~/assets/img/product/@image.ImageUrl" class="w-100" alt="">
+                                            
+                                        }       
+                                    }
+                            </a>
+                        </div>
+                        <h6 class="text-center border-top py-3">
+                            <a href="/shop/detail/@item.Id" class="text-decoration-none hover2 t-5 text-black">
+                                @item.Name
+                            </a>
+                        </h6>
+                        @if (item.CreatedTime.Month==DateTime.Now.Month)
+                            {
+                        <span class="custom-badge">YENİ</span>                                
+                            }
+                    </div>
+                </div> 
+                }
+            </div>
+            <div class="prev-new  pa-prev-new">
+                <i class="fa-solid fa-chevron-left   " style="cursor: pointer;"></i>
+            </div>
+            <div class="next-new  pa-next-new ">
+                <i class="fa-solid fa-chevron-right  " style="cursor: pointer;"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- New Model Area End -->

@@ -1,0 +1,56 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<a asp-controller="slider" asp-action="create" class="btn btn-success">Create</a>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body"> 
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Photo
+                                </th>
+                                <th>
+                                    Created time
+                                </th>
+                                <th>
+                                    Delete
+                                </th>
+                                <th>
+                                    Edit
+                                </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                          
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="~/assets/img/slider/@Model.ImageUrl" alt="image" />
+                                    </td>
+                                    <td>
+                                        @Model.CreatedTime.ToString("dd MM yyyy mm : ss")
+                                    </td>
+                                    <td>
+                                        <a asp-controller="slider" asp-action="delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+
+                                    </td>
+                                    <td>
+                                        <a asp-controller="slider" asp-action="edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                                    </td>
+                                   
+                                </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

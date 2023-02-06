@@ -1,0 +1,75 @@
+﻿@model Bio
+<footer class="bg-grey pt-4">
+    <div class="border-bottom ">
+        <div class="container ">
+            <div class="row align-items-start ">
+                <div class="col-lg-3">
+                    <a asp-controller="home" asp-action="index">
+                        <img src="~/assets/img/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-3">
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fa-solid fa-phone text-yellow"></i>
+                            <a href="tel:4646" class="text-decoration-none text-black hover2 t-5 fw-semibold">@Model.Phone</a>
+                        </li>
+                        <li class="pt-2">
+                            <i class="fa-regular fa-envelope text-yellow"></i>
+                            <a href="mailto:info@istikbal.com.az" class="ps-1 text-decoration-none text-black hover2 t-5 fw-semibold">@Model.Email</a>
+                        </li>
+                        <li class="pt-2">
+                            <i class="fa-solid fa-question text-yellow"></i>
+                            <a href="mailto:@Model.Email" class="ps-1 text-decoration-none text-black hover2 t-5 fw-semibold">FAQ</a>
+                        </li>
+                        <li class="pt-2">
+                            <a href="@Model.Facebook" class="text-decoration-none text-blue hover2 t-5" target="_blank">
+                                <i class="fa-brands fa-facebook-f "></i>
+                            </a>
+                            <a href="@Model.Youtube" class="text-decoration-none ps-3  text-danger hover2 t-5" target="_blank">
+                                <i class="fa-brands fa-youtube "></i>
+                            </a>
+                            <a href="@Model.İnstagram" class="text-decoration-none ps-3 text-danger hover2 t-5" target="_blank">
+                                <i class="fa-brands fa-instagram "></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="list-unstyled">
+                        <li>
+                            <h3>Ödəniş sistemləri</h3>
+                        </li>
+                        <li>
+                            <figure class="d-inline-block ">
+                                <img src="~/assets/img/footer/icon1.png" class="hover4 t-5 w-75" alt="">
+                            </figure>
+                            <figure class="d-inline-block ">
+                                <img src="~/assets/img/footer/icon2.png" class="hover4 t-5 w-75" alt="">
+                            </figure>
+                            <figure class="d-inline-block ">
+                                <img src="~/assets/img/footer/icon3.png" class="hover4 t-5 w-75" alt="">
+                            </figure>
+                            <figure class="d-inline-block ">
+                                <img src="~/assets/img/footer/icon4.png" class="hover4 t-5 w-75" alt="">
+                            </figure>
+                            <figure class="d-inline-block ">
+                                <img src="~/assets/img/footer/icon5.png" class="hover4 t-5 w-75" alt="">
+                            </figure>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <img src="~/assets/img/footer/media1.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-4">
+        <div class="container">
+            <span class="fw-bold">@DateTime.Now.ToString("yyyy")</span>
+            <span class="fw-bold">Istikbal - Hər ev gözəldir!</span>
+        </div>
+    </div>
+</footer>
+

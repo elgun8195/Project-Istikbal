@@ -1,0 +1,306 @@
+﻿@model Bio
+@inject Istikbal_Backend.Services.LayoutService layoutService
+@{
+    BasketVM basket = await layoutService.ShowBasket();
+
+}
+<!--====== Basket-Modal Part Start ======-->
+@await Html.PartialAsync("_basketPartial",layoutService)
+
+<!--====== Basket-Modal Part End ======-->
+<div class="py-2 bg-grey">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-2 col-12 text-center text-sm-start">
+                <a href="" class="text-decoration-none">
+                    <img src="~/assets/img/header/az.png" alt="">
+                </a>
+                <span>|</span>
+                <a href="" class="text-decoration-none">
+                    <img src="~/assets/img/header/ru.png" alt="">
+                </a>
+            </div>
+            <div class="col-lg-10 col-12 text-center text-sm-end pt-4 pt-sm-0">
+                @if (!User.Identity.IsAuthenticated)
+                {
+
+                    <a href="" class=" text-decoration-none t-5 text-black" data-toggle="modal" data-target="#login">
+                        <i class="fas fa-user fs-4" style="cursor: pointer;"></i>
+                        <span>Giris</span>
+                    </a>
+                    <a href="" class="ms-3 text-decoration-none t-5 text-black" data-toggle="modal" data-target="#register">
+                        <i class="fas fa-pen fs-4" style="cursor: pointer;"></i>
+                        <span>Qeydiyyat</span>
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="account" asp-action="logout" class="ms-3 text-decoration-none t-5 text-black">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Çıxış</span>
+                    </a>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Logo Wrapper -->
+<div class="py-4">
+    <div class="container">
+        <div class="row align-items-center justify-content-between ">
+            <div class="col-lg-2 col-8 mx-auto mx-sm-0">
+                <img src="~/assets/img/logo.png" class="w-100 " alt="">
+            </div>
+            <div class="col-lg-10 search d-flex align-items-center justify-content-end col-12 mx-auto">
+                <div class="border d-flex align-items-center w-50 justify-content-between br-5">
+                    <input type="text" id="search-input" class="border-0 ps-3 outline-none " placeholder="Axtar">
+                    <a href="" class="bg-yellow hover1 t-5 text-decoration-none text-white py-1 fw-semibold px-2" style="border-top-right-radius: 4px;">
+                        <i class="fas fa-search "></i>
+                    </a>
+
+                </div>
+                <div class=" ps-5">
+                    <ul class="list-unstyled d-flex align-items-center">
+                        <li>
+                            <i class="fa-solid fa-phone fs-2 text-blue"></i>
+                        </li>
+                        <li>
+                            <div class="text-center ps-4">
+                                <p class="d-block p-0 m-0">Qaynar xətt</p>
+                                <a href="tel:4646" class="text-blue fs-4  text-decoration-none hover2 t-5 d-block p-0 m-0">@Model.Phone</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="ps-5 hover2 header-basket t-5">
+                    <ul class="list-unstyled">
+                        <li class="hover2 ">
+                            <a href="" class="text-decoration-none text-black position-relative t-5" data-toggle="modal" data-target="#basket">
+                                <i class="fa-solid fa-cart-shopping fs-3 "></i>
+                                <span class="">@basket.TotalPrice AZN</span>
+                                <span class="bg-blue text-white px-1 br-100 pa">@basket.Count</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>
+                .search-results {
+                    z-index: 8889;
+                    list-style-type: none;
+                    width: 50%;
+                    margin: 0;
+                    padding: 0;
+                    background: #ffffff;
+                    box-shadow: 0px 4px 7px 0px rgb(0 0 0 / 10%);
+                    overflow: hidden;
+                }
+
+
+
+                    .search-results li {
+                        display: block;
+                        width: 100%;
+                        height: 38px px;
+                        margin: 0;
+                        padding: 0;
+                        border-top: 1px solid #cccccc;
+                        line-height: 38px;
+                        overflow: hidden;
+                    }
+
+                    .search-results .thumbnail {
+                        float: left;
+                        display: block;
+                        width: 32px;
+                        height: 32px;
+                        margin: 3px 0 3px 3px;
+                        padding: 0;
+                        text-align: center;
+                        overflow: hidden;
+                        border-radius: 0px;
+                    }
+
+                #search-input {
+                    max-width: 100%;
+                }
+
+                .search-results .thumbnail img {
+                    max-width: 100%;
+                }
+
+                .search-results .title {
+                    float: left;
+                    width: 140px;
+                    padding-left: 8px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    -o-text-overflow: ellipsis;
+                    text-align: left;
+                    font-size: 12px;
+                    line-height: 38px;
+                    color: #515151;
+                }
+            </style>
+            <ul class="search-results" id="search-results" style="margin-left: 29%;">
+            </ul>
+            <div class="col-12 text-center  d-sm-none d-block">
+                <div class="border br-5 d-flex align-items-center w-100 justify-content-between ">
+                    <input type="text" name="" id="" class="border-0 ps-3 outline-none " placeholder="Axtar">
+                    <a href="" class="bg-yellow hover1 t-5 text-decoration-none text-white py-1 fw-semibold px-2" style="border-top-right-radius: 4px;">
+                        <i class="fas fa-search "></i>
+                    </a>
+                </div>
+                <ul class="list-unstyled d-flex  align-items-center border-top border-bottom py-2 mt-3    ">
+                    <li>
+                        <i class="fa-solid fa-phone fs-2 text-blue"></i>
+                    </li>
+                    <li>
+                        <div class="text-center ps-4">
+                            <p class="d-block p-0 m-0">Qaynar xətt</p>
+                            <a href="tel:4646" class=" fs-4 text-blue fw-semibold text-decoration-none hover2 t-5 d-block p-0 m-0">@Model.Phone</a>
+                        </div>
+                    </li>
+                    <div class="ps-5 hover2 header-basket t-5">
+                        <ul class="list-unstyled">
+                            <li class="hover2 ">
+                                <a href="" class="text-decoration-none text-black position-relative t-5" data-toggle="modal" data-target="#basket">
+                                    <i class="fa-solid fa-cart-shopping fs-3 "></i>
+                                    <span class="">0 AZN</span>
+                                    <span class="bg-blue text-white br-100 px-1 br-5 pa">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pages -->
+<div class="d-none d-sm-block">
+    <div class="container">
+        <div class="row align-items-center">
+            <ul class="list-unstyled">
+                <li class="d-inline-block">
+                    <a asp-controller="home" asp-action="index" class="text-decoration-none text-black">
+                        <span class="hover-underline-animation t-5">ISTIKBAL MEBEL</span>
+                    </a>
+                </li>
+                <li class="d-inline-block ps-3 category">
+                    <a href="" class="text-decoration-none text-black ">
+                        <span class="hover-underline-animation t-5">KATEQORIYALAR</span>
+                        <i class="fa-solid fa-chevron-down "></i>
+                    </a>
+                    <!-- Big Menu Category -->
+                    <div class="big-menu pt-4 px-5 pb-3">
+                        <div class="row flex-wrap">
+                            @foreach (var item in ViewBag.Categories)
+                            {
+                                <div class="col-lg-2-5">
+                                    <div class="mt-3">
+                                        <span class="fw-semibold text-grey fs-15">@item.Name</span>
+                                        <a href="/shop/index/@item.Id?sortId=4">
+                                            <img src="~/assets/img/category/@item.ImageUrl" class="w-100" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+                <li class="d-inline-block ps-3">
+                    <a href="/shop/mehsullar" class="text-decoration-none text-black">
+                        <span class="hover-underline-animation text-uppercase t-5">Yeni Məhsullar</span>
+                    </a>
+                </li>
+
+                <li class="d-inline-block ps-3">
+                    <a asp-controller="about" asp-action="index" class="text-decoration-none text-black">
+                        <span class="hover-underline-animation t-5">HAQQIMIZDA</span>
+                    </a>
+                </li>
+                <li class="d-inline-block ps-3">
+                    <a asp-controller="contact" asp-action="index" class="text-decoration-none text-black">
+                        <span class="hover-underline-animation t-5 text-uppercase">Əlaqə</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Pages-Mobile -->
+<div class="d-sm-none d-block">
+    <div class="container">
+        <button class="accordion-menu bg-blue text-white br-5">Menu </button>
+        <div class="panel-menu ">
+            <ul class="list-unstyled py-2">
+                <li class="mt-2">
+                    <a asp-controller="home" asp-action="index" class="text-decoration-none text-black text-uppercase">Istikbal Mebel</a>
+                </li>
+                <li class="mt-4">
+                    <a href="" class="text-decoration-none text-black "></a>
+                    <div class="accordion  accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed text-uppercase bg-transparent px-0" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Kategoriyalar
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="row flex-wrap">
+                                        @foreach (var item in ViewBag.Categories)
+                                        {
+
+                                            <div class="col-6">
+                                                <div class="mt-3">
+                                                    <span class="fw-semibold text-grey fs-sm-13">@item.Name</span>
+                                                    <a href="/shop/index/@item.Id?sortId=4">
+                                                        <img src="~/assets/img/category/@item.ImageUrl" class="w-100" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="mt-4">
+                    <a href="/shop/mehsullar" class="text-decoration-none text-black text-uppercase">YENI MEHSULLAR</a>
+                </li>
+                <li class="mt-4">
+                    <a asp-controller="about" asp-action="index" class="text-decoration-none text-black text-uppercase">HAQQIMIZDA</a>
+                </li>
+                <li class="mt-4">
+                    <a asp-controller="contact" asp-action="index" class="text-decoration-none text-black text-uppercase">ELAQE</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+    $(document).on("keyup", "#search-input", function () {
+        let inputVal = $(this).val().trim();
+        $("#search-results li").slice(0).remove();
+        $.ajax({
+            method: "get",
+            url: "shop/Search?search=" + inputVal,
+            success: function (res) {
+                $("#search-results").append(res);
+            }
+        })
+    })
+</script>

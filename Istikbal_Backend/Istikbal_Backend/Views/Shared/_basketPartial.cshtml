@@ -1,0 +1,201 @@
+﻿@inject Istikbal_Backend.Services.LayoutService layoutService
+@{
+    BasketVM basket = await layoutService.ShowBasket();
+    int totalprice = 0;
+}
+<div class="modal " id="basket" tabindex="-1" role="dialog" aria-labelledby="basketLabel">
+    <div class="modal__dialog" role="document">
+        <div class="modal__content border-0 ">
+            <div class="d-flex align-items-center justify-content-between bg-blue2 px-3 py-2">
+                <div>
+                    <h5 class="text-white">ALIŞ-VERİŞ SƏBƏTİ</h5>
+                </div>
+                <div data-dismiss="modal" aria-label="Close" class="text-white " style="cursor: pointer;">
+                    <i class="fas fa-close"></i>
+                </div>
+            </div>
+            <div class="bg-blue  py-3">
+                @foreach (var item in layoutService.ShowBasket().Result.BasketItems)
+                {
+                    <span style="display:none">@(totalprice += item.Count * item.Product.Price)</span>
+
+                    <div class="single-basket d-flex align-items-center ">
+                        <div class="mx-3  mt-3 bg-white px-2">
+                            <div class="row align-items-center">
+                                <div class="col-lg-3 col-3">
+                                    <a href="/shop/detail/@item.Product.Id">
+                                        @foreach (var photo in item.Product.ProductImages)
+                                        {
+                                            if (photo.IsMain)
+                                            {
+
+                                                <img src="~/assets/img/product/@photo.ImageUrl" class="w-100   shadow" alt="">
+                                            }
+                                        }
+                                    </a>
+                                </div>
+                                <div class="col-lg-6 col-4 text-start">
+                                    <a asp-controller="shop" asp-action="detail" asp-route-id="@item.Product.Id" class="text-decoration-none text-black">
+                                        <span>@item.Product.Name</span>
+                                    </a>
+                                    <p><span class="money">@item.Product.Price</span> AZN</p>
+                                </div>
+                                <div class="col-lg-3 col-5 ">
+                                    <div class="cart-plus-minus border bg-grey d-flex ms-5 align-items-center" style="width: 64%;">
+                                        <div data-id="@item.Product.Id" class="minus downn text-black fw-bold px-2" style="cursor: pointer;">-</div>
+                                        <span class="bg-transparent inp-value border-0 w-24" style="outline: none;">@item.Count</span>
+                                        <div data-id="@item.Product.Id" class="plus upp text-black fw-bold px-2" style="cursor: pointer;">+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="basket-remove pe-3">
+                            <a asp-controller="basket" asp-action="remove" asp-route-id="@item.Product.Id" class="text-white delete text-decoration-none">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h4 class="d-none money-total" data-id="@item.Product.Id"> @((item.Product.Price * item.Count)) </h4>
+
+                }
+                <div class="total px-3 pt-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="text-white">Ümumi</h6>
+                        <h6 class="text-white"><span class="total_price">@totalprice</span> AZN</h6>
+                    </div>
+                    <div class="buttons pt-12 d-flex align-items-center justify-content-between">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            
+                        <a asp-controller="basket" asp-action="index"   class="bg-white fw-semibold text-center text-decoration-none border t-5 text-blue w-100 py-2 hover3">
+                            <span>SEBET</span>
+                        </a>
+                        }
+                       
+                    </div>
+                    <div class="text-center py-3">
+                        <a asp-controller="shop" asp-action="Index" class="text-white fw-semibold">ALIŞ-VERİŞƏ DAVAM EDİN</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    var myInp = document.querySelectorAll(".inp-value");
+    var increaseBtn = document.querySelectorAll(".upp");
+    var decreaseBtn = document.querySelectorAll(".downn");
+    for (let elem of decreaseBtn) {
+
+        elem.addEventListener("click", function (e) {
+            e.preventDefault()
+            countst = this.nextElementSibling.innerText
+            countstn = Number(countst)
+            if (countstn > 1) {
+                count = this.nextElementSibling.innerText
+                countn = Number(count)
+                countn -= 1;
+                this.nextElementSibling.innerText = countn;
+            }
+        })
+    }
+    for (let elem of increaseBtn) {
+
+        elem.addEventListener("click", function (e) {
+            e.preventDefault()
+            count = this.previousElementSibling.innerText
+            countn = Number(count)
+            countn += 1;
+            this.previousElementSibling.innerText = countn;
+
+
+        })
+    }
+    $(".delete").click(function (e) {
+        e.preventDefault()
+        console.log($(this).attr("href"))
+        Swal.fire({
+            title: 'Əminsen?',
+            text: "Geri dönüşü yoxdur",
+            icon: 'Xəbərdarlıq',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sil!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var link = $(this).attr("href");
+                fetch(link).then(response => response.json()).then(data => {
+                    if (data.status == 200) {
+                        location.reload(true)
+                    } else {
+                        Swal.fire(
+                            'Tapılmadı!',
+                            'Fayl silinmiş ola bilər.',
+                            'Uğursuz cəhd'
+                        )
+                    }
+                });
+            }
+        })
+    })
+    $(document).on("click", ".downn", function (e) {
+        e.preventDefault();
+        var id = $(this).attr("data-id")
+        var total = document.querySelector(".total_price")
+        var money = document.querySelectorAll(".money-total")
+        console.log(id)
+        $.ajax({
+            url: "/basket/minus",
+            data: {
+                id: id
+            },
+            type: "post",
+            datatype: "json",
+            success: function (data) {
+                money.forEach(mon => {
+                    if (id == mon.getAttribute("data-id")) {
+                        mon.innerHTML = data.price
+                        console.log(data.price)
+                    }
+                })
+                total.innerHTML = `${data.totalPrice}`
+
+            }
+        })
+
+    })
+
+    $(document).on("click", ".upp", function (e) {
+        e.preventDefault();
+        var id = $(this).attr("data-id")
+        var total = document.querySelector(".total_price")
+        var money = document.querySelectorAll(".money-total")
+        console.log(id)
+        $.ajax({
+            url: "/basket/plus",
+            data: {
+                id: id
+            },
+            type: "post",
+            datatype: "json",
+            success: function (data) {
+                money.forEach(mon => {
+                    if (id == mon.getAttribute("data-id")) {
+                        mon.innerHTML = data.price
+                        console.log(data.price)
+                    }
+                })
+                total.innerHTML = `${data.totalPrice}`
+
+            }
+        })
+
+    })
+
+</script>

@@ -1,0 +1,589 @@
+﻿@model ProductDetailVM
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="breadcrumbs-wrapper mb-5 border-bottom pb-4">
+    <div class="container">
+        <div class="row">
+            <nav class="woocommerce-breadcrumb">
+                <a href="/home/index"
+                   class="text-decoration-none fw-bold hover2 t-5 text-grey">Home</a>
+                <span> / </span>
+                <span class="fw-bold">@Model.Product.Name</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="container">
+                    <div class="master">
+                        @foreach (var item in Model.Product.ProductImages)
+                        {
+                            @if (item.IsMain)
+                            {
+
+                                <img src="~/assets/img/product/@item.ImageUrl"
+                             style="object-fit: cover" />
+                            }
+                        }
+                        <i class="fas fa-chevron-left"></i>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="thumbnails">
+                        @foreach (var item in Model.Product.ProductImages)
+                        {
+                            <img class="active"
+                             src="~/assets/img/product/@item.ImageUrl"
+                             style="object-fit: cover; height: 75px" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="summary entry-summary">
+                    <h1 class="product_title entry-title">@Model.Product.Name</h1>
+                    <p class="kredit price woosb-price-19947">
+                        <span class="woocommerce-Price-amount amount">
+                            <bdi>
+                                @(Model.Product.Price) &nbsp;<span class="woocommerce-Price-currencySymbol">AZN</span>
+                            </bdi>
+                        </span>
+                    </p>
+
+                    <div>
+                        <style>
+                            .qiymet-yazisi {
+                                font-weight: 700;
+                            }
+                        </style>
+
+                        <p class="qiymet-yazisi">Seçdiyiniz məhsulun qiyməti</p>
+                    </div>
+
+                    <div class="credit-calculation">
+                        <style>
+                            .credit-calculation {
+                                position: relative;
+                                padding: 0 10px;
+                                margin-top: 45px;
+                            }
+
+                                .credit-calculation .title p {
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                    color: #282828;
+                                    position: relative;
+                                }
+
+                                .credit-calculation .payment-option {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                }
+
+                                    .credit-calculation .payment-option .range-section {
+                                        width: 75%;
+                                        position: relative;
+                                        margin-top: 20px;
+                                    }
+
+                                        .credit-calculation
+                                        .payment-option
+                                        .range-section
+                                        #range-tooltip {
+                                            width: fit-content;
+                                            height: auto;
+                                            background-color: #fec53a;
+                                            color: #fff;
+                                            font-size: 14px;
+                                            padding: 0 5px;
+                                            position: absolute;
+                                            top: -32px;
+                                            display: none;
+                                            transform: translateX(-50%);
+                                        }
+
+                                        .credit-calculation
+                                        .payment-option
+                                        .range-section
+                                        .range-container {
+                                            width: 100%;
+                                            position: relative;
+                                        }
+
+                                            .credit-calculation
+                                            .payment-option
+                                            .range-section
+                                            .range-container
+                                            .bar {
+                                                position: absolute;
+                                                z-index: 1;
+                                                left: 0;
+                                                top: 0;
+                                                width: 100%;
+                                                height: 3px;
+                                                border-radius: 5px;
+                                                background-color: #e3e3e4;
+                                                overflow: hidden;
+                                            }
+
+                                                .credit-calculation
+                                                .payment-option
+                                                .range-section
+                                                .range-container
+                                                .bar
+                                                .fill {
+                                                    position: absolute;
+                                                    display: block;
+                                                    width: 0;
+                                                    background-color: #fec53a;
+                                                    height: 100%;
+                                                }
+
+                                            .credit-calculation
+                                            .payment-option
+                                            .range-section
+                                            .range-container
+                                            .range-slider {
+                                                position: relative;
+                                                z-index: 2;
+                                                -webkit-appearance: none;
+                                                appearance: none;
+                                                width: 100%;
+                                                height: 3px;
+                                                border-radius: 5px;
+                                                background: 0 0;
+                                                outline: none;
+                                                -webkit-transition: 0.2s;
+                                                transition: opacity 0.2s;
+                                            }
+
+                                        .credit-calculation .payment-option .range-section ul {
+                                            display: flex;
+                                            margin-top: 13px;
+                                            width: 100%;
+                                            justify-content: space-between;
+                                        }
+
+                                            .credit-calculation .payment-option .range-section ul li {
+                                                font-size: 14px;
+                                                color: rgba(40, 40, 40, 0.7);
+                                                text-align: left;
+                                                position: relative;
+                                                width: calc(100% / 8);
+                                                display: flex;
+                                                justify-content: flex-end;
+                                            }
+
+                                                .credit-calculation
+                                                .payment-option
+                                                .range-section
+                                                ul
+                                                li:first-child
+                                                p {
+                                                    min-width: unset;
+                                                    width: fit-content;
+                                                    position: relative;
+                                                    min-width: 16px;
+                                                    text-align: center;
+                                                }
+
+                                                .credit-calculation
+                                                .payment-option
+                                                .range-section
+                                                ul
+                                                li
+                                                p:before {
+                                                    content: "";
+                                                    position: absolute;
+                                                    height: 10px;
+                                                    border: 1px solid #e3e3e4;
+                                                    top: -16px;
+                                                    left: 50%;
+                                                    transform: translateX(-50%);
+                                                }
+
+                                    .credit-calculation .payment-option .payment-info ul {
+                                        display: flex;
+                                    }
+
+                                        .credit-calculation .payment-option .payment-info ul li {
+                                            position: relative;
+                                            display: table;
+                                            /*             background-color: #ebebeb; */
+                                            margin-left: 10px;
+                                            border-radius: 4px;
+                                            padding: 0 10px;
+                                        }
+
+                                            .credit-calculation .payment-option .payment-info ul li p {
+                                                font-size: 16px;
+                                                color: #282828;
+                                                text-align: center;
+                                            }
+
+                            .azn_span {
+                                font-family: montserrat;
+                            }
+                        </style>
+                        <div class="title" style="padding-bottom: 12px">
+                            <p>Kredit Kalkulyatoru</p>
+                        </div>
+                        <div class="payment-option">
+                            <div class="range-section">
+                                <div id="range-tooltip"></div>
+                                <div class="range-container">
+                                    <span class="bar"><span class="fill"></span></span>
+                                    <input type="range"
+                                           class="range-slider"
+                                           style="display: inherit"
+                                           min="6"
+                                           max="24"
+                                           valuehtml="6 ay"
+                                           oninput="toggleSteps(this);"
+                                           step="6"
+                                           value="6"
+                                           id="cc-range"
+                                           data-popup-enabled="true" />
+                                </div>
+                                <style>
+                                    .credit-calculation
+                                    .payment-option
+                                    .range-section
+                                    ul
+                                    li {
+                                        width: 14.81px !important;
+                                    }
+
+                                    .range-slider {
+                                        padding: 0;
+                                    }
+                                </style>
+                                <script>
+                                    document.querySelector("#cc-range").oninput =
+                                        function () {
+                                            jthisval = this.value;
+                                            setTimeout(function () {
+                                                perwidther = document.querySelector(
+                                                    '.range-section [data-month="' + jthisval + '"]'
+                                                );
+                                                barfillwidth =
+                                                    perwidther.getAttribute("data-perwidth") + "%";
+                                                document.querySelector(".bar .fill").style.width =
+                                                    barfillwidth;
+                                                document.querySelector(
+                                                    "#range-tooltip"
+                                                ).style.left = barfillwidth;
+                                            }, 10);
+                                            toggleSteps(this);
+                                        };
+                                    function toggleSteps(a) {
+                                        var inputVal = a.value;
+                                        var cost = 0;
+                                        if (
+                                            document.querySelector(".kredit ins") == null ||
+                                            document.querySelector(".kredit ins") == undefined
+                                        ) {
+                                            if (
+                                                document.querySelector(".kredit bdi") == null ||
+                                                document.querySelector(".kredit bdi") == undefined
+                                            ) {
+                                                cost =
+                                                    document.querySelector(".kredit").innerText;
+                                            } else {
+                                                cost =
+                                                    document.querySelector(".kredit bdi").innerText;
+                                            }
+                                        } else {
+                                            cost =
+                                                document.querySelector(
+                                                    ".kredit ins bdi"
+                                                ).innerText;
+                                        }
+                                        if (cost.includes(",")) {
+                                            cost = cost.replace(",", "");
+                                        }
+                                        cost = parseInt(cost.replace(" AZN", ""));
+                                        if (inputVal == 6) {
+                                            cost *= 1.14;
+                                        } else if (inputVal == 12) {
+                                            cost *= 1.25;
+                                        } else if (inputVal == 18) {
+                                            cost *= 1.3;
+                                        } else if (inputVal == 24) {
+                                            cost *= 1.4;
+                                        }
+                                        document.querySelector(".ayliq").innerText =
+                                            Math.round(cost / inputVal);
+                                    }
+                                    document.addEventListener(
+                                        "DOMContentLoaded",
+                                        function () {
+                                            var cost = 0;
+                                            setTimeout(function () {
+                                                if (
+                                                    document.querySelector(".kredit ins") == null ||
+                                                    document.querySelector(".kredit ins") ==
+                                                    undefined
+                                                ) {
+                                                    if (
+                                                        document.querySelector(".kredit bdi") ==
+                                                        null ||
+                                                        document.querySelector(".kredit bdi") ==
+                                                        undefined
+                                                    ) {
+                                                        cost =
+                                                            document.querySelector(".kredit").innerText;
+                                                    } else {
+                                                        cost =
+                                                            document.querySelector(
+                                                                ".kredit bdi"
+                                                            ).innerText;
+                                                    }
+                                                } else {
+                                                    cost =
+                                                        document.querySelector(
+                                                            ".kredit ins bdi"
+                                                        ).innerText;
+                                                }
+                                                if (cost.includes(",")) {
+                                                    cost = cost.replace(",", "");
+                                                }
+                                                if (cost.includes(",")) {
+                                                    cost = cost.replace(",", "");
+                                                }
+                                                cost = parseInt(cost.replace(" AZN", ""));
+                                                document.querySelector(".ayliq").innerText =
+                                                    Math.round((cost * 1.14) / 6);
+                                                var li =
+                                                    document.querySelectorAll(".dd-options li");
+                                                for (var i = 0; i < li.length; i++) {
+                                                    li[i].addEventListener(
+                                                        "click",
+                                                        function (event) {
+                                                            if (
+                                                                document.querySelector(".kredit ins") ==
+                                                                null ||
+                                                                document.querySelector(".kredit ins") ==
+                                                                undefined
+                                                            ) {
+                                                                if (
+                                                                    document.querySelector(".kredit bdi") ==
+                                                                    null ||
+                                                                    document.querySelector(".kredit bdi") ==
+                                                                    undefined
+                                                                ) {
+                                                                    cost =
+                                                                        document.querySelector(
+                                                                            ".kredit"
+                                                                        ).innerText;
+                                                                } else {
+                                                                    cost =
+                                                                        document.querySelector(
+                                                                            ".kredit bdi"
+                                                                        ).innerText;
+                                                                }
+                                                            } else {
+                                                                cost =
+                                                                    document.querySelector(
+                                                                        ".kredit ins bdi"
+                                                                    ).innerText;
+                                                            }
+                                                            if (cost.includes(",")) {
+                                                                cost = cost.replace(",", "");
+                                                            }
+                                                            if (cost.includes(",")) {
+                                                                cost = cost.replace(",", "");
+                                                            }
+                                                            cost = parseInt(cost.replace(" AZN", ""));
+                                                            var inputVal =
+                                                                document.querySelector("#cc-range").value;
+                                                            if (inputVal == 6) {
+                                                                cost *= 1.14;
+                                                            } else if (inputVal == 12) {
+                                                                cost *= 1.25;
+                                                            } else if (inputVal == 18) {
+                                                                cost *= 1.3;
+                                                            } else if (inputVal == 24) {
+                                                                cost *= 1.4;
+                                                            }
+                                                            document.querySelector(".ayliq").innerText =
+                                                                Math.round(cost / inputVal);
+                                                        },
+                                                        3000
+                                                    );
+                                                }
+                                            });
+                                        }
+                                    );
+                                </script>
+                                <ul>
+                                    <li>
+                                        <p data-perwidth="0"
+                                           data-amount=""
+                                           data-prepay="0"
+                                           data-noper=""
+                                           class="nisye_ay"
+                                           data-month="6">
+                                            6
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p data-perwidth="33"
+                                           data-amount=""
+                                           data-prepay="0"
+                                           data-noper=""
+                                           class="nisye_ay"
+                                           data-month="12">
+                                            12
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p data-perwidth="67"
+                                           data-amount=""
+                                           data-prepay="0"
+                                           data-noper=""
+                                           class="nisye_ay"
+                                           data-month="18">
+                                            18
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p data-perwidth="100"
+                                           data-amount=""
+                                           data-prepay="0"
+                                           data-noper=""
+                                           class="nisye_ay"
+                                           data-month="24">
+                                            24
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="payment-info">
+                                <ul>
+                                    <li>
+                                        <p>
+                                            Aylıq ödəniş
+                                        </p>
+
+                                        <p>
+                                            <b class="ayliq">0</b>
+                                            <span class="azn_span"> AZN</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="woocommerce-product-details__short-description">
+                        <strong>
+                            <h4><span><strong>Məhsul haqqında məlumat</strong></span></h4><strong>
+                                <p>
+                                    @Model.Product.Description<br>
+                                </p>
+
+                            </strong>
+                        </strong>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-start">
+                    <div class="qty">
+                        <input type="number" id="ival" class="border bg-white outline-none br-5 py-2 w-50" name="qty" min="1" value="1" />
+                        <input type="hidden" value="@Model.Product.Id" id="productid">
+                    </div>
+                    <div>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+
+                            <button class="text-black tocar hover3 t-5 bg-yellow border-0 outline-none br-5 py-2 px-3">
+                                <i class="fa-solid fa-cart-shopping"></i> Sebete elave et
+                            </button>
+                        }
+                        else
+                        {
+
+
+                            <button class="text-black tocart hover3 t-5 bg-yellow border-0 outline-none br-5 py-2 px-3">
+                                <i class="fa-solid fa-cart-shopping"></i> Sebete elave et
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h3 class="text-blue fw-normal py-3">Konsept Məhsullar</h3>
+        <div class="new-model-slider row">
+            @foreach (var item in Model.RelatedProducts)
+            {
+                <div class="single-product">
+                    <div class="border single-product-into position-relative ms-sm-4 br-5">
+                        <div class="images-hover">
+                            <a href="/shop/detail/@item.Id" class="">
+                                @foreach (var image in item.ProductImages)
+                                {
+                                    if (image.IsMain)
+                                    {
+                                        <img src="~/assets/img/product/@image.ImageUrl" class="w-100" alt="">
+
+                                    }
+                                }
+                            </a>
+                        </div>
+                        <h6 class="text-center border-top py-3">
+                            <a href="/shop/detail/@item.Id" class="text-decoration-none hover2 t-5 text-black">
+                                @item.Name
+                            </a>
+                        </h6>
+                        @if (item.CreatedTime.Month == DateTime.Now.Month)
+                        {
+                            <span class="custom-badge">YENİ</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="prev-new  pa-prev-new">
+            <i class="fa-solid fa-chevron-left   " style="cursor: pointer;"></i>
+        </div>
+        <div class="next-new  pa-next-new ">
+            <i class="fa-solid fa-chevron-right  " style="cursor: pointer;"></i>
+        </div>
+    </div>
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    $(document).on("click", ".tocart", function (e) {
+        var inputString = $("#ival");
+        var elmId = $("#productid");
+        var base = window.location.origin;
+        var url = `${base}/basket/add/${$(elmId).val()}?count=${$(inputString).val()} `
+        window.location.replace(url)
+
+    })
+    //$(document).on("click", ".tocar", function (e) {
+    //    alert("Xais Edirik Ilk Once Giris Edin")
+
+    //})
+    $(".tocar").click(function (e) {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Login?',
+            text: "Ilk ince giris edin!",
+            icon: 'Xəbərdarlıq',
+            confirmButtonText: 'OK!'
+        })
+    }) 
+</script>

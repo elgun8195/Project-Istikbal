@@ -1,0 +1,189 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-3">
+            <div class="border px-2">
+                <h4 class="pt-2 pb-2">KATEQORİYALAR</h4>
+                <div>
+                    <ul class="list-unstyled">
+                        @foreach (var category in Model)
+                        {
+                            @if (category.CategoryDests.Count == 0)
+                            {
+                                <li class="border-bottom py-2">
+                                    <i class="fa-solid fa-couch"></i>
+
+                                    <a href="/shop/index/@category.Id?sortId=4" class="text-decoration-none text-black hover2 t-5">@category.Name (@category.ProductCategories.Count)</a>
+                                </li>
+                            }
+                            @if (category.CategoryDests.Count != 0)
+                            {
+                                <li class="border-bottom  py-1">
+                                    <div class="accordion-menu px-0 mx-0 py-2">
+                                        <i class="fa-solid fa-bed"></i>
+                                        <a href="/shop/index/@category.Id?sortId=4" class="text-decoration-none text-black hover2 t-5">@category.Name (@category.ProductCategories.Count)</a>
+
+                                    </div>
+                                    <div class="panel-menu overflow-hidden ps-0">
+                                        <ul class="list-unstyled ">
+                                            @foreach (var item in category.CategoryDests)
+                                            {                                              
+
+                                                <li class="pt-3">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                    <img src="~/assets/img/category/@item.CategoryIn.ImageUrl" class="w-10" alt="">
+                                                    <a href="/shop/dest/@item.CategoryIn.Id?sortId=4" class="text-decoration-none text-black hover2 t-5">@item.CategoryIn.Name (@item.CategoryIn.ProductCategoryIns.Count)</a>
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 pt-sm-0 pt-5">
+            <div class="page-content entry-content">
+                <!-- Page content -->
+                <div class="page-title">
+                    <h2 class="text-grey">Haqqımızda</h2>
+                </div>
+                <div class="d-sm-flex ">
+                    <p style="text-align: left;">
+                        1957-ci ildən bəri, mebel sənayesinin qabaqcıl şirkətlərinin illik təcrübəsi və 60
+                        illik nailiyyət yolu ilə mebel sektorunun lideri olmağı bacaran İstikbal Mebel məhsul müxtəlifliyi, dizayn
+                        fərqliliyi, keyfiyyət və satış sonrası xidmətləri ilə Türkiyənin prestijli markaları arasında yer tutaraq,
+                        sektorun əlavə dəyərini təmin etmək və yeni təşəbbüslər yaratmağa davam edir.
+                    </p>
+                    <img class="w-100" src="~/assets/img/logo.png" alt="">
+                </div>
+                <p style="text-align: left;">
+                    İstehlakçı yönümlü yanaşması ilə sektorun ehtiyac və tələbatlarını hər bir nöqtədə
+                    məhsul və xidmətlərində ən yaxşı şəkildə əks etdirən İstikbal Mebel, ev dekorasiyasında yeni meyl və trendləri
+                    nəzərdə tutaraq, bütün istehsal və xidmət proseslərini davamlı olaraq təkmilləşdirir. Yenilikçi xətti ilə müasir
+                    istehsal və marketinq anlayışını sektordakı təcrübəsi ilə birləşdirən İstikbal, eyni zamanda mebel sənayesindəki
+                    standartları daima yüksəltməyi hədəfləyir.
+                </p>
+                <p style="text-align: left;">
+                    Rahatlıq və keyfiyyəti unutmadan dizayn etdiyi məhsullarını evlərində fərqlilik
+                    yaratmaq istəyənlər üçün zəriflik və rahatlıqla birləşdirən İstikbal, xüsusi modellərini geniş çeşidli
+                    məhsullarında əks etdirir. Oturma qruplarından yataq otağına, mətbəxdən panel mebellərə, uşaq və gənc
+                    otaqlarından ev tekstilinə, işıqlandırmadan xalçaya, bağ mebelindən aksesuarlara qədər xüsusi kolleksiyalar
+                    təqdim edən İstikbal, minlərlə məhsulu fərqli zövq və məkanlarla bir araya gətirir.
+                </p>
+                <p style="text-align: left;">
+                    İstehlakçıların həyatını asanlaşdıran tətbiqləri ilə fərqlilik yaradan İstikbal, eyni
+                    dekorasiya yönümlü hər növ ehtiyacları da eyni qrup altında təqdim edən minlərlə kvadratmetrlik yeni “Ev
+                    Konsepti” mağazaları ilə sektorunu sürətləndirməyə davam edir və ev konsepsiyası anlayışı çərçivəsində
+                    istehlakçı ilə vəhdətini təşkil edir. Ev dekorasiyasının istiqamətini müəyyənləşdirən İstikbal, eyni zamanda
+                    sistemli şəkildə təqdim etdiyi uyğun kampaniyaları, fərqli məhsul qruplarındakı endirimləri və kampaniyaları ilə
+                    imtiyazlar yaratmaqla istehlakçı üçün hər mənada rahatlığı təmin edir.
+                </p>
+                <p style="text-align: left;">
+                    İstikbal təqribən minə yaxın mağaza və məhsulları ilə Türkiyəni əhatə etməklə bərabər,
+                    eyni zamanda bir dünya markası olma yolunda da sürətlə irəliləyir. Hazırda 70-dən çox ölkəyə İstikbal markası
+                    adı altında məhsul təqdim edən İstikbal, Yunanistan, Bolqarıstan, Rusiya, Misir, Almaniya, Qazaxıstan, Rumıniya,
+                    İngiltərə və Fransa kimi bir çox ölkədə 110 mağazası və 5000 satış nöqtəsi ilə Türk keyfiyyətinin xaricə
+                    ötürülməsini təmin edir. New Jersey-dəki lojistik mərkəzi vasitəsi ilə ABŞ-da bir çox mağazaya məhsullarının
+                    satışını həyata keçirən İstikbal, sektordakı yenilikləri və texnoloji inkişafları daim təqib edərək məhsul
+                    dizaynı və keyfiyyətində davamlı olaraq yüksəliş edir.
+                </p>
+                <p style="text-align: left;"><span style="color: #114b96;"><strong>Qısa tarixi </strong></span></p>
+                <p style="text-align: left;">
+                    1957-ci ildə Kayseridəki kiçik bir dülgərlik emalatxanasında təməli qapı-pəncərə
+                    istehsalı ilə atılan İstikbal, 80-ci illərədək qapı-pəncərə, şkaf, yataq otağı, masa və stul kimi mebel
+                    növlərinin istehsalına başladı. Emalatxanalar vəhdət halında toplandıqdan sonra böyük bir zavoda köçürüldü.
+                    Bazardakı tələb və təklif balansını yaxşı qiymətləndirən və istehlakçının nəbzini davamlı olaraq tutan İstikbal,
+                    yalnız bir açılan divan kimi məhsulla məhdudlaşlaşdırılmayıb, geniş baxış ilə hər il investisiyalarına və məhsul
+                    portfelinə yeniklərini əlavə edir. 90-cı illərin sonunda Kayseridə nəhəng bir inteqrasiya təsisi quraraq,
+                    İstikbalın dünya markası olması üçün bir addım atıldı. 60 illik təcrübəsi ilə Türkiyənin lider mebel markası
+                    olmağa nail olan İstikbal sürətli addımlarla Türkiyə və dünya mebel bazarında uğurlu və qərarlı şəkildə
+                    inkişafını davam etdirir.
+                </p>
+                <p style="text-align: left;">
+                    Dünya keyfiyyət standartlarının istehsalı ilə məşğul olan məhsul keyfiyyəti, paylama
+                    şəbəkəsi, satış və satış sonrası xidmət anlayışı ilə istehlakçı ehtiyacları və xoşbəxtliyini ön plana salan
+                    İstikbal mebel 1000-lərlə məhsulu Türkiyə miqyasında 1000-ə yaxın kolleksiyasının istehlakçı ilə vəhdətini
+                    təşkil etməyə davam edir.
+                </p>
+                <p style="text-align: left;"><span style="color: #114b96;"><strong>Missiya və vizyon</strong> </span></p>
+                <p style="text-align: left;">
+                    Missiyamız tədqiqat və inkişaf fəaliyyətimizlə istehlakçılarımızın fərqli həyat tərzi
+                    və istifadə vərdişlərinə uyğun dünya standartlarında insan və ətraf mühitə uyğun məhsullar yaratmaq və istehsal
+                    etməkdir.
+                </p>
+                <p style="text-align: left;">
+                    Vizyonumuz yenilik və texnoloji inkişafları izləyərək məhsul keyfiyyətindəki
+                    göstəricini daima yüksəltmək, dünya markası olma yolunda əmin addımlar atmaq və bazarda lider şirkət olma
+                    nüfuzumuzu qorumaqdır. Bununla birlikdə, ixracat yönümlü layihələrimizlə Türkiyəyə xarici valyutanın daxil
+                    olmasını təmin etmə və qoyduğumuz sərmayələrlə iş qüvvəsi mənasında geniş məşğulluq avantajları yaradaraq, ölkə
+                    iqtisadiyyatına dəstək olmaqdır.
+                </p>
+                <p style="text-align: left;"><span style="color: #114b96;"><strong>Keyfiyyət siyasəti</strong> </span></p>
+                <p style="text-align: left;">
+                    Milli və beynəlxalq rəqabət mühitində, müştərinin tələb və ehtiyaclarının təmin
+                    olunmasında məshulun sadəcə qənaətcil olması deyil, eyni zamanda keyfiyyətli, etibarlı olması, vaxtında
+                    çatdırılması da əhəmiyyətli rol oynayır.
+                </p>
+                <p style="text-align: left;">
+                    Bu məqsədlə şirkətimiz; “SƏMƏRƏLİLİK VƏ MÜŞTƏRİ MƏMUNİYYƏTİ” şüarı ilə özünü daim
+                    təkmilləşdirərək, müştəri tələblərini iqtisadi, keyfiyyətli, etibarlı bir şəkildə və vaxtında təmin olunmasını
+                    əsas keyfiyyət siyasəti olaraq müəyyən etmişdir.
+                </p>
+                <p style="text-align: left;"><span style="color: #114b96;"><strong>Ətraf mühit siyasəti</strong> </span></p>
+                <p style="text-align: left;">
+                    Mebel sektorunda fəaliyyət göstərən şirkətimiz, milli və beynəlxalq rəqabət mühitində
+                    və qloballaşan dünyada yenilikçi və çevrəyə hörmət edən bir nüfuzlu şirkət olaraq fəaliyyət göstərir. Bu
+                    məqsədlə; təbii resursların istehlakından rassional şəkildə istifadə etmək, ətraf mühiti çirkləndirən
+                    elementləri və ətraf mühit tullantılarını daim izləmək, qanunvericilik, qanun və qaydalar çərçivəsində davamlı
+                    inkişaf fəlsəfəsi ilə işləmək, bütün fəaliyyətlərimizi sənədləşdirmək və cəmiyyətimizlə bölüşmək əsas ekoloji
+                    siyasətimizdir.
+                </p>
+                <p style="text-align: left;">
+                    <span style="color: #114b96;">
+                        <strong>
+                            İş gigiyenası və təhlükəsizliyi (İSG)
+                            siyasəti
+                        </strong>
+                    </span>
+                </p>
+                <p style="text-align: left;">
+                    ‘‘Bütün personallarımız etibarlı bir şəraitdə işləməyə layiqdir‘‘ fəlsəfəsinə əsasən,
+                    İSG siyasəti aşağıdakı əsaslardan ibarətdir.
+                </p>
+                <ul>
+                    <li style="text-align: left;">
+                        İşçilərimiz üçün daha etibarlı bir iş mühitini təmin edə bilmək üçün müəssisədə
+                        risk analiz layihələri həyata keçirərək, riskləri minimum səviyyəyə salmağı;
+                    </li>
+                    <li style="text-align: left;">
+                        İSG tətbiqetmələri ilə əlaqədar daimi yaxşılaşdırma və təkmilləşdirmə işlərini
+                        həyata keçirməyi;
+                        Bütün işçilərin fərdi məsuliyyətlərini anlaya bilmələrini təmin etmək məqsədi ilə təlimlər keçməyi;
+                    </li>
+                    <li style="text-align: left;">
+                        İş gigiyenası və təhlükəsizliyi qanunvericiliyi və əlaqədar qanunlara əsasən
+                        hərəkət etməyi;
+                    </li>
+                    <li style="text-align: left;">
+                        Müəssisə hüdudları daxilində tədarükçü və subpodratlarımızı da yuxarıdakı əsaslar
+                        əsasında yönləndirməyi bəyan edir və öhdəmizə götürürük.
+                    </li>
+                    <li>“Sama LTD” Məhdud Məsuliyyətli Cəmiyyəti</li>
+                    <li>Hüquqi ünvanı: Azərbaycan, Bakı, AZ 3628, Nərimanov r-nu, Əhmədzadə ev 13</li>
+                    <li>Telefon: <span style="color: #114b96;"><strong>*4646</strong></span></li>
+                    <li>E-mail: <span style="color: #114b96;"><strong>info@istikbal.com.az</strong></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

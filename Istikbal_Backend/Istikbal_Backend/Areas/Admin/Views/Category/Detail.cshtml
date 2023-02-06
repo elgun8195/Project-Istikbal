@@ -1,0 +1,75 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<a asp-controller="category" asp-action="create" class="btn btn-success">Create</a>
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Photo
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Created time
+                                </th>
+                                @if (Model.CategoryDests.Count != 0)
+                                {                                    
+                                <th>
+                                    Destler
+                                </th>
+                                }
+                                <th>
+                                    Delete
+                                </th>
+                                <th>
+                                    Edit
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="~/assets/img/category/@Model.ImageUrl" alt="image" />
+                                    </td>
+                                    <td class="py-1">
+                                        @Model.Name
+                                    </td>
+                                    <td>
+                                        @Model.CreatedTime.ToString("dd MM yyyy mm : ss")
+                                    </td>
+                                    <td>
+                                       @if (Model.CategoryDests.Count!=0)
+                                    {
+                                        @foreach (var item in Model.CategoryDests)
+                                        {
+                                            @(item.CategoryIn.Name + "| ")
+                                        }
+                                    }
+                                    </td>
+                                    <td>
+                                        <a asp-controller="category" asp-action="delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+
+                                    </td>
+                                    <td>
+                                        <a asp-controller="category" asp-action="edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
